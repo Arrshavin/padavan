@@ -23,6 +23,7 @@
 
 /* Use SVID search */
 #define __USE_GNU
+#define _GNU_SOURCE
 #include <search.h>
 
 /* CGI hash table */
@@ -51,9 +52,6 @@ get_cgi(char *name)
 {
 	ENTRY e, *ep;
 
-	if (!htab.table)
-		return NULL;
-
 	e.key = name;
 	hsearch_r(e, FIND, &ep, &htab);
 
@@ -64,9 +62,6 @@ void
 set_cgi(char *name, char *value)
 {
 	ENTRY e, *ep;
-
-	if (!htab.table)
-		return;
 
 	e.key = name;
 	hsearch_r(e, FIND, &ep, &htab);
